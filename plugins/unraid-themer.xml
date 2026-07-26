@@ -20,8 +20,8 @@
   <!-- Launching in beta -->
   <Beta>true</Beta>
 
-  <!-- font awesome 4.7 icon name without the fa- prefix (matches the plugin icon) -->
-  <IconFA>paint-brush</IconFA>
+  <!-- rainbow paintbrush icon (rendered from unraid/themer.svg) -->
+  <Icon>https://raw.githubusercontent.com/benjaminmue/unraid/main/unraid/themer.png</Icon>
 
   <License>MIT</License>
 
