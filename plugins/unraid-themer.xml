@@ -21,7 +21,7 @@
   <Beta>true</Beta>
 
   <!-- rainbow paintbrush icon (rendered from unraid/themer.svg) -->
-  <Icon>https://raw.githubusercontent.com/benjaminmue/unraid/main/unraid/themer.png</Icon>
+  <Icon>https://raw.githubusercontent.com/benjaminmue/unraid-themer/main/unraid/themer.png</Icon>
 
   <License>MIT</License>
 
