@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CommunityApplications>
   <Profile>benjaminmue's apps for Unraid.&lt;br&gt;&lt;br&gt;Obsidian Sync Station keeps an Obsidian vault synced on your server using Obsidian's official headless Sync client, with a LAN-only web UI, local and off-site (restic) backups, one-click restore and ntfy notifications.&lt;br&gt;&lt;br&gt;Unraid Themer is a non-destructive theming plugin for the Unraid 7 webGUI: pick a bundled theme or build your own from 8 colors, browse a built-in theme store, swap the UI icons for open-source icon sets, and set a custom background image and logo. Currently in beta, testing and contributing are welcome.&lt;br&gt;&lt;br&gt;Source and issues: https://github.com/benjaminmue</Profile>
-  <Icon>https://raw.githubusercontent.com/benjaminmue/unraid/main/unraid/icon.svg</Icon>
+  <Icon>https://raw.githubusercontent.com/benjaminmue/unraid/main/unraid/bebamu.png</Icon>
   <WebPage>https://github.com/benjaminmue/unraid</WebPage>
 </CommunityApplications>
