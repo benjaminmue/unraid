@@ -1,0 +1,20 @@
+# Community Applications reads this repository straight from main, so every
+# change is checked before it lands: valid XML, channel rules, unique names
+# and ports, and that every referenced image actually exists on GHCR.
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  templates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check templates and plugin metadata
+        run: python3 .github/scripts/validate.py
