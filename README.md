@@ -3,6 +3,8 @@
 Community Applications hub for my Unraid apps. This repo only holds the CA
 metadata; each app's code lives in its own repository.
 
+Overview page: https://unraid.bebamu.ch (GitHub Pages from `docs/`).
+
 - **Obsidian Sync Station** (Docker): https://obsidian-sync.bebamu.ch, source https://github.com/benjaminmue/obsidian-sync-station
   - `templates/obsidian-sync-station.xml`: release channel, image `:latest`, port 8484
   - `templates/obsidian-sync-station-beta.xml`: beta channel, image `:beta`, port 8494

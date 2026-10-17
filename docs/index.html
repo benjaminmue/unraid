@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>benjaminmue's Unraid apps - plugins and Docker containers</title>
+<meta name="description" content="Unraid plugins and Docker containers by benjaminmue: Unraid Themer, Obsidian Sync Station and OneDrive Sync Station, all in Community Applications.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="assets/themer.svg" type="image/svg+xml">
+<link rel="canonical" href="https://unraid.bebamu.ch/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="benjaminmue's Unraid apps">
+<meta property="og:title" content="benjaminmue's Unraid apps">
+<meta property="og:description" content="Unraid plugins and Docker containers: Unraid Themer, Obsidian Sync Station, OneDrive Sync Station.">
+<meta property="og:url" content="https://unraid.bebamu.ch/">
+<meta property="og:image" content="https://unraid.bebamu.ch/assets/themer.webp">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top__inner">
+    <a class="brand" href="#top" aria-label="benjaminmue's Unraid apps, back to top">
+      <span>Unraid apps by benjaminmue</span>
+    </a>
+    <nav class="top__nav" aria-label="Sections">
+      <a href="#apps">Apps</a>
+      <a href="#templates">Templates</a>
+      <a href="#channels">Channels</a>
+      <a href="https://github.com/benjaminmue/unraid">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero wrap">
+    <p class="label">Unraid plugins and Docker containers</p>
+    <h1>Apps I build for Unraid.</h1>
+    <p class="lede">A theming plugin for the webGUI and two sync containers with a web UI. All of them are open source, listed in Community Applications, and run on my own Unraid server first.</p>
+    <p class="meta">Install from <strong>Apps</strong> in the Unraid webGUI and search for the name.</p>
+  </section>
+
+  <section id="apps" class="section wrap">
+    <ul class="apps">
+      <li class="app">
+        <a class="app__shot" href="https://themer.bebamu.ch/"><img src="assets/themer.webp" width="960" height="604" loading="lazy" alt="Unraid dashboard restyled with the Nord theme"></a>
+        <div class="app__body">
+          <p class="app__name"><img src="assets/themer.svg" width="22" height="22" alt=""> Unraid Themer <span class="theme__tag">Plugin</span></p>
+          <p class="app__desc">Restyles the Unraid 7 webGUI: twenty themes in a built-in store, a theme builder, nine open-source icon sets, custom logo and background. Non-destructive: switch it off and the webGUI is stock again.</p>
+          <p class="app__links">
+            <a class="btn" href="https://themer.bebamu.ch/">Website</a>
+            <a class="btn btn--ghost" href="https://themer.bebamu.ch/live.html">Live preview</a>
+            <a class="btn btn--ghost" href="https://github.com/benjaminmue/unraid-themer">Source</a>
+          </p>
+          <p class="app__ca">In Apps: <strong>Unraid Themer</strong> &middot; <strong>Unraid Themer Beta</strong></p>
+        </div>
+      </li>
+      <li class="app">
+        <a class="app__shot" href="https://obsidian-sync.bebamu.ch/"><img src="assets/obsidian-sync.webp" width="960" height="504" loading="lazy" alt="Obsidian Sync Station web UI"></a>
+        <div class="app__body">
+          <p class="app__name"><img src="assets/obsidian-sync.svg" width="22" height="22" alt=""> Obsidian Sync Station <span class="theme__tag">Docker</span></p>
+          <p class="app__desc">Keeps an Obsidian vault synced on the server with Obsidian's official headless Sync client, managed from a web UI. Optional local backups, restic off-site copies and ntfy notifications.</p>
+          <p class="app__links">
+            <a class="btn" href="https://obsidian-sync.bebamu.ch/">Website</a>
+            <a class="btn btn--ghost" href="https://github.com/benjaminmue/obsidian-sync-station">Source</a>
+          </p>
+          <p class="app__ca">In Apps: <strong>obsidian-sync-station</strong> &middot; <strong>obsidian-sync-station-beta</strong></p>
+        </div>
+      </li>
+      <li class="app">
+        <a class="app__shot" href="https://onedrive-sync.bebamu.ch/"><img src="assets/onedrive-sync.webp" width="960" height="504" loading="lazy" alt="OneDrive Sync Station web UI"></a>
+        <div class="app__body">
+          <p class="app__name"><img src="assets/onedrive-sync.svg" width="22" height="22" alt=""> OneDrive Sync Station <span class="theme__tag">Docker</span></p>
+          <p class="app__desc">Syncs several OneDrive Personal, OneDrive Business and SharePoint accounts in one container, each with its own folder, settings and sign-in. Built on the OneDrive Client for Linux by abraunegg.</p>
+          <p class="app__links">
+            <a class="btn" href="https://onedrive-sync.bebamu.ch/">Website</a>
+            <a class="btn btn--ghost" href="https://github.com/benjaminmue/OneDrive-Sync-Station">Source</a>
+          </p>
+          <p class="app__ca">In Apps: <strong>onedrive-sync-station</strong> &middot; <strong>onedrive-sync-station-beta</strong></p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="templates" class="section wrap">
+    <div class="head">
+      <p class="label">Templates</p>
+      <h2>Templates for apps by other publishers.</h2>
+      <p>Community Applications templates I maintain for images I did not build. They follow the publisher's stable tag and have no beta entry.</p>
+    </div>
+    <ul class="list">
+      <li><strong>n8n Sandbox API</strong> and <strong>n8n Sandbox Runner</strong>: the self-hosted code sandbox for the n8n Assistant and n8n Agents, only useful next to an existing n8n container. The API creates the mTLS certificates, the runner is a privileged Docker-in-Docker container. Images and source by n8n: <a href="https://github.com/n8n-io/n8n-sandbox-service">n8n-io/n8n-sandbox-service</a>.</li>
+    </ul>
+  </section>
+
+  <section id="channels" class="section wrap">
+    <div class="head">
+      <p class="label">Channels</p>
+      <h2>Release and beta.</h2>
+      <p>Every app has two entries in Community Applications. The release entry is for daily use. The beta entry, shown with the BETA banner, carries pre-release builds for testing; every change goes there first and is released after it has run on my server.</p>
+    </div>
+    <ul class="list">
+      <li><strong>Docker apps:</strong> the release entry uses the <code>:latest</code> image, the beta entry <code>:beta</code>. The beta templates default to their own port and their own paths, so both can run side by side. Never point them at the same config or data path.</li>
+      <li><strong>Unraid Themer:</strong> both entries install the same plugin, so one replaces the other. Settings, themes, icons and logo carry over, and updates come from the channel installed last.</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__inner">
+    <p>Built by Benjamin Müller. Community apps, not official Lime Technology products. Unraid is a trademark of Lime Technology, Inc.; Obsidian and OneDrive belong to their owners.</p>
+    <nav aria-label="Project links">
+      <a href="https://github.com/benjaminmue/unraid">CA templates</a>
+      <a href="https://github.com/benjaminmue">GitHub profile</a>
+    </nav>
+  </div>
+</footer>
+</body>
+</html>
