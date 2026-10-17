@@ -7,6 +7,7 @@ Exits non-zero with one line per problem.
 
 import json
 import pathlib
+import re
 import sys
 import urllib.error
 import urllib.request
@@ -90,8 +91,44 @@ for path in sorted((ROOT / "templates").glob("*.xml")):
     if image.startswith("ghcr.io/") and not ghcr_tag_exists(image):
         problems.append(f"{rel}: image {image} does not exist on GHCR")
 
-for path in sorted((ROOT / "plugins").glob("*.xml")) + [ROOT / "ca_profile.xml"]:
-    parse(path)
+def plg_url_of(url):
+    """The pluginURL a published .plg declares for itself, None if unreadable."""
+    try:
+        with urllib.request.urlopen(url, timeout=20) as res:
+            text = res.read().decode("utf-8", errors="replace")
+    except urllib.error.URLError:
+        return None
+    m = re.search(r'<!ENTITY\s+pluginURL\s+"([^"]+)"', text)
+    return m.group(1) if m else None
+
+
+# Plugin channels: <plugin>.xml installs the .plg from the plugin's main branch,
+# <plugin>-beta.xml the one from its beta branch, with the BETA flag. Both .plg
+# install under the same plugin name, so one replaces the other; the published
+# .plg must name the same URL, or Unraid's update check would follow another
+# channel than the entry the user picked.
+for path in sorted((ROOT / "plugins").glob("*.xml")):
+    rel = path.relative_to(ROOT)
+    root = parse(path)
+    if root is None:
+        continue
+    name = (root.findtext("Name") or "").strip()
+    url = (root.findtext("PluginURL") or "").strip()
+    beta = (root.findtext("Beta") or "").strip().lower() == "true"
+    if not name or not url:
+        problems.append(f"{rel}: Name and PluginURL are required")
+        continue
+    if name in names:
+        problems.append(f"{rel}: name {name} also used by {names[name]}")
+    names[name] = rel
+    branch = "beta" if beta else "main"
+    if path.stem.endswith("-beta") != beta or f"/refs/heads/{branch}/" not in url:
+        problems.append(f"{rel}: file name, Beta={beta} and PluginURL {url} do not match one channel")
+    declared = plg_url_of(url)
+    if declared != url:
+        problems.append(f"{rel}: the .plg at {url} declares pluginURL {declared}")
+
+parse(ROOT / "ca_profile.xml")
 
 for path in sorted(ROOT.rglob("*")):
     if path.suffix in {".xml", ".md", ".json"} and ".git" not in path.parts:
@@ -100,5 +137,5 @@ for path in sorted(ROOT.rglob("*")):
 
 for problem in problems:
     print(f"::error::{problem}")
-print(f"{len(names)} templates checked, {len(problems)} problem(s)")
+print(f"{len(names)} templates and plugins checked, {len(problems)} problem(s)")
 sys.exit(1 if problems else 0)
