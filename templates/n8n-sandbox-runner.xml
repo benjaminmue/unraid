@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>n8n-sandbox-runner</Name>
+  <Repository>ghcr.io/n8n-io/n8n-sandbox-service-runner-dind:stable</Repository>
+  <Registry>https://github.com/n8n-io/n8n-sandbox-service/pkgs/container/n8n-sandbox-service-runner-dind</Registry>
+  <Network>n8n-sandbox</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>true</Privileged>
+  <Support>https://github.com/benjaminmue/unraid/issues</Support>
+  <Project>https://github.com/n8n-io/n8n-sandbox-service</Project>
+  <Overview>Runner for the self-hosted n8n code sandbox. Only useful together with an existing n8n container and the n8n-sandbox-api container: install n8n-sandbox-api first and follow the setup steps in its description.&#13;&#13;The runner does the actual work. It runs its own Docker engine (Docker-in-Docker) and starts one throwaway container per sandbox, in which the n8n Assistant and n8n Agents run AI-generated code. It registers with n8n-sandbox-api over mutual TLS, using the certificates n8n-sandbox-api created on its first start. It restarts on its own until n8n-sandbox-api is reachable, so the start order does not matter.&#13;&#13;Privileged: Docker-in-Docker requires it. Treat this container as root on the host. It publishes no ports; keep it that way and never expose it to the internet. Code inside a sandbox can reach the internet; the runner blocks its traffic to private address ranges (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 169.254.0.0/16), so your LAN is not reachable from a sandbox.&#13;&#13;The inner Docker data (sandbox image, sandbox containers) lives in the Docker data path. It must be a pool or disk path such as /mnt/cache/..., not /mnt/user/..., because the inner Docker cannot use the user share file system.&#13;&#13;Image tag :stable follows the latest stable release of the n8n sandbox service. Update this container together with n8n-sandbox-api.&#13;&#13;Unofficial template, maintained by benjaminmue. The images are published by n8n (n8n-io/n8n-sandbox-service).</Overview>
+  <Category>AI: Tools:Utilities:</Category>
+  <WebUI/>
+  <TemplateURL>https://raw.githubusercontent.com/benjaminmue/unraid/main/templates/n8n-sandbox-runner.xml</TemplateURL>
+  <Icon>https://cdn.jsdelivr.net/gh/selfhst/icons/png/n8n.png</Icon>
+  <ExtraParams>--network-alias=n8n-sandbox-runner-1 --restart=unless-stopped</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Description>Privileged Docker-in-Docker runner for the self-hosted n8n code sandbox. Requires an existing n8n container and the n8n-sandbox-api container.</Description>
+  <Config Name="TLS certificates" Target="/tls/runner" Default="/mnt/user/appdata/n8n-sandbox/tls/runner" Mode="ro" Description="The runner/ subfolder of the TLS path of n8n-sandbox-api. Created there on the first start of n8n-sandbox-api." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/n8n-sandbox/tls/runner</Config>
+  <Config Name="Docker data" Target="/var/lib/docker" Default="/mnt/cache/appdata/n8n-sandbox/docker" Mode="rw" Description="Storage of the inner Docker engine. Must be a pool or disk path (/mnt/cache/..., /mnt/POOLNAME/...), NOT /mnt/user/...: the inner Docker fails on the user share file system." Type="Path" Display="always" Required="true" Mask="false">/mnt/cache/appdata/n8n-sandbox/docker</Config>
+  <Config Name="Runner registration token" Target="SANDBOX_RUNNER_REGISTRATION_TOKEN" Default="" Mode="" Description="Must be identical to Runner registration token in n8n-sandbox-api." Type="Variable" Display="always" Required="true" Mask="true"></Config>
+  <Config Name="Runner key" Target="SANDBOX_RUNNER_API_KEYS" Default="" Mode="" Description="Must be identical to Runner key in n8n-sandbox-api." Type="Variable" Display="always" Required="true" Mask="true"></Config>
+  <Config Name="Sandbox image" Target="SANDBOX_RUNNER_DOCKER_SANDBOX_IMAGE" Default="ghcr.io/n8n-io/n8n-sandbox-service-sandbox:stable" Mode="" Description="Image of the per-sandbox containers, pulled by the inner Docker on first use." Type="Variable" Display="advanced" Required="true" Mask="false">ghcr.io/n8n-io/n8n-sandbox-service-sandbox:stable</Config>
+  <Config Name="Runner ID" Target="SANDBOX_RUNNER_ID" Default="runner-1" Mode="" Description="Do not change." Type="Variable" Display="advanced" Required="true" Mask="false">runner-1</Config>
+  <Config Name="API gRPC address" Target="SANDBOX_RUNNER_API_GRPC_ADDR" Default="n8n-sandbox-api:9090" Mode="" Description="Registration endpoint of n8n-sandbox-api on the n8n-sandbox network. Do not change." Type="Variable" Display="advanced" Required="true" Mask="false">n8n-sandbox-api:9090</Config>
+  <Config Name="API server name" Target="SANDBOX_RUNNER_REGISTRATION_GRPC_SERVER_NAME" Default="n8n-sandbox-api" Mode="" Description="Name in the API certificate. Do not change." Type="Variable" Display="advanced" Required="true" Mask="false">n8n-sandbox-api</Config>
+  <Config Name="HTTP base URL" Target="SANDBOX_RUNNER_HTTP_BASE_URL" Default="https://n8n-sandbox-runner-1:8080" Mode="" Description="Address under which n8n-sandbox-api reaches this runner. Do not change." Type="Variable" Display="advanced" Required="true" Mask="false">https://n8n-sandbox-runner-1:8080</Config>
+  <Config Name="Control listen address" Target="SANDBOX_RUNNER_CONTROL_GRPC_LISTEN_ADDR" Default=":9091" Mode="" Description="Do not change." Type="Variable" Display="advanced" Required="true" Mask="false">:9091</Config>
+  <Config Name="Control advertise address" Target="SANDBOX_RUNNER_CONTROL_GRPC_ADVERTISE_ADDR" Default="n8n-sandbox-runner-1:9091" Mode="" Description="Do not change." Type="Variable" Display="advanced" Required="true" Mask="false">n8n-sandbox-runner-1:9091</Config>
+  <Config Name="Registration CA" Target="SANDBOX_RUNNER_REGISTRATION_GRPC_CA_FILE" Default="/tls/runner/ca.crt" Mode="" Description="Do not change." Type="Variable" Display="advanced" Required="true" Mask="false">/tls/runner/ca.crt</Config>
+  <Config Name="Registration client certificate" Target="SANDBOX_RUNNER_REGISTRATION_GRPC_CERT_FILE" Default="/tls/runner/grpc-client.crt" Mode="" Description="Do not change." Type="Variable" Display="advanced" Required="true" Mask="false">/tls/runner/grpc-client.crt</Config>
+  <Config Name="Registration client key" Target="SANDBOX_RUNNER_REGISTRATION_GRPC_KEY_FILE" Default="/tls/runner/grpc-client.key" Mode="" Description="Do not change." Type="Variable" Display="advanced" Required="true" Mask="false">/tls/runner/grpc-client.key</Config>
+  <Config Name="Control server certificate" Target="SANDBOX_RUNNER_CONTROL_GRPC_TLS_CERT_FILE" Default="/tls/runner/control-grpc-server.crt" Mode="" Description="Do not change." Type="Variable" Display="advanced" Required="true" Mask="false">/tls/runner/control-grpc-server.crt</Config>
+  <Config Name="Control server key" Target="SANDBOX_RUNNER_CONTROL_GRPC_TLS_KEY_FILE" Default="/tls/runner/control-grpc-server.key" Mode="" Description="Do not change." Type="Variable" Display="advanced" Required="true" Mask="false">/tls/runner/control-grpc-server.key</Config>
+  <Config Name="Control client CA" Target="SANDBOX_RUNNER_CONTROL_GRPC_TLS_CLIENT_CA_FILE" Default="/tls/runner/ca.crt" Mode="" Description="Do not change." Type="Variable" Display="advanced" Required="true" Mask="false">/tls/runner/ca.crt</Config>
+</Container>
