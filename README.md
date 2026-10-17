@@ -14,7 +14,9 @@ metadata; each app's code lives in its own repository.
   https://github.com/n8n-io/n8n-sandbox-service
   - `templates/n8n-sandbox-api.xml`: control plane, image `:stable`, port 3200, creates the mTLS certificates
   - `templates/n8n-sandbox-runner.xml`: privileged Docker-in-Docker runner, image `:stable`, no ports
-- **Unraid Themer** (plugin, beta): https://themer.bebamu.ch, source https://github.com/benjaminmue/unraid-themer
+- **Unraid Themer** (plugin): https://themer.bebamu.ch, source https://github.com/benjaminmue/unraid-themer
+  - `plugins/unraid-themer.xml`: release channel, `.plg` from the `main` branch
+  - `plugins/unraid-themer-beta.xml`: beta channel, `.plg` from the `beta` branch
 
 ## Channels
 
@@ -26,6 +28,10 @@ the n8n Sandbox follow their publisher's stable tag and have no beta entry):
 - **Beta** (`<app>-beta`, shown with the BETA banner): image `:beta`, built from every push to
   the app's `beta` branch. Pre-release builds for testing; they may break.
 
+The plugin follows the same two channels with one difference: both entries install the
+same plugin, so they cannot run side by side. Installing one replaces the other, settings
+carry over, and Unraid offers updates from the channel installed last.
+
 Every change goes to beta first, is tested there, and is released afterwards. The beta
 templates default to their own port, their own appdata folder and their own data paths, so
 both entries can run side by side. Never point the beta and the release container at the
@@ -35,7 +41,8 @@ conflicts and can lose data.
 ## Checks
 
 Every pull request runs `.github/scripts/validate.py`: XML validity, the channel rules
-above, unique names and default ports, matching `TemplateURL`, no em-dashes, and that
+above (for plugins: file name, BETA flag and branch of the `PluginURL` agree, and the
+published `.plg` declares that same URL), unique names and default ports, matching `TemplateURL`, no em-dashes, and that
 every referenced image tag exists on GHCR. A release template can therefore only be
 merged once its `:latest` image has been published. `main` accepts changes only through
 pull requests with this check green.
