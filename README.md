@@ -9,11 +9,17 @@ metadata; each app's code lives in its own repository.
 - **OneDrive Sync Station** (Docker): https://onedrive-sync.bebamu.ch, source https://github.com/benjaminmue/OneDrive-Sync-Station
   - `templates/onedrive-sync-station.xml`: release channel, image `:latest`, port 8485
   - `templates/onedrive-sync-station-beta.xml`: beta channel, image `:beta`, port 8495
+- **n8n Sandbox** (Docker, third-party images by n8n): self-hosted code sandbox for the n8n
+  Assistant and n8n Agents, only useful with an existing n8n container. Source
+  https://github.com/n8n-io/n8n-sandbox-service
+  - `templates/n8n-sandbox-api.xml`: control plane, image `:stable`, port 3200, creates the mTLS certificates
+  - `templates/n8n-sandbox-runner.xml`: privileged Docker-in-Docker runner, image `:stable`, no ports
 - **Unraid Themer** (plugin, beta): https://themer.bebamu.ch, source https://github.com/benjaminmue/unraid-themer
 
 ## Channels
 
-Every Docker app has two Community Applications entries:
+Every Docker app of my own has two Community Applications entries (third-party images such as
+the n8n Sandbox follow their publisher's stable tag and have no beta entry):
 
 - **Release** (`<app>`): image `:latest`, built from version tags `vX.Y.Z` on the app's `main`
   branch. Use this one for daily use.
