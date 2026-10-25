@@ -10,7 +10,7 @@
   <Support>https://github.com/benjaminmue/obsidian-sync-station/issues</Support>
   <Project>https://github.com/benjaminmue/obsidian-sync-station</Project>
   <Overview>Keeps an Obsidian vault synced using Obsidian's official headless Sync client (ob), with an optional local backup to your server storage. Configure everything from the web UI: Obsidian login (email/password/MFA), remote vault selection, optional end-to-end decryption password, and sync status.&#13;&#13;LAN-only by design: the web UI holds your Obsidian credentials, so do NOT expose it to the internet. Requires an active Obsidian Sync subscription. The proprietary ob client is installed from npm on first start (not bundled). Give the container its own dedicated vault path and never point the Obsidian desktop app at the same path.&#13;&#13;Backup: set Enable Backup to true and map the Backup path to enable scheduled tar.gz snapshots (schedule + retention configured in the web UI). Optional off-site backups via restic and ntfy notifications are supported.</Overview>
-  <Category>Productivity: Backup: Tools:Utilities:</Category>
+  <Category>Productivity: Backup: Tools:Utilities</Category>
   <WebUI>http://[IP]:[PORT:8080]/</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/benjaminmue/unraid/main/templates/obsidian-sync-station.xml</TemplateURL>
   <Icon>https://raw.githubusercontent.com/benjaminmue/obsidian-sync-station/main/unraid/obsidian-sync-station.png</Icon>
