@@ -16,6 +16,10 @@ import xml.etree.ElementTree as ET
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 RAW_BASE = "https://raw.githubusercontent.com/benjaminmue/unraid/main/"
 EM_DASH = "—"
+# CA writes a main category as "Backup:" and a subcategory as "Tools:Utilities".
+# A trailing colon on a subcategory ("Tools:Utilities:") is not a category CA
+# knows, and the app page shows "Template Errors: Unknown category".
+CATEGORY = re.compile(r"^[A-Za-z]+:([A-Za-z]+)?$")
 problems = []
 
 
@@ -25,6 +29,12 @@ def parse(path):
     except ET.ParseError as err:
         problems.append(f"{path.relative_to(ROOT)}: invalid XML: {err}")
         return None
+
+
+def check_categories(rel, root):
+    for token in (root.findtext("Category") or "").split():
+        if not CATEGORY.match(token):
+            problems.append(f"{rel}: category {token} is not 'Main:' or 'Main:Sub'")
 
 
 def ghcr_tag_exists(image):
@@ -72,6 +82,7 @@ for path in sorted((ROOT / "templates").glob("*.xml")):
     if name in names:
         problems.append(f"{rel}: Name {name} also used by {names[name]}")
     names[name] = rel
+    check_categories(rel, root)
     if template_url != RAW_BASE + rel.as_posix():
         problems.append(f"{rel}: TemplateURL must be {RAW_BASE + rel.as_posix()}")
 
@@ -121,6 +132,7 @@ for path in sorted((ROOT / "plugins").glob("*.xml")):
     if name in names:
         problems.append(f"{rel}: name {name} also used by {names[name]}")
     names[name] = rel
+    check_categories(rel, root)
     branch = "beta" if beta else "main"
     if path.stem.endswith("-beta") != beta or f"/refs/heads/{branch}/" not in url:
         problems.append(f"{rel}: file name, Beta={beta} and PluginURL {url} do not match one channel")
